@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "es2020",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "outDir": "./src/src_compile/",
+    "removeComments": false,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "importHelpers": true,
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": [ "es6", "dom" ],
+    "typeRoots": [
+      "node_modules/@types/"
+    ],
+    "noStrictGenericChecks": true,
+    "baseUrl": "./"
+  },
+  "compileOnSave": true,
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  //"exclude": [
+  //  "node_modules"
+  //],
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

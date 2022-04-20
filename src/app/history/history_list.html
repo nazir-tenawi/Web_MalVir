@@ -1,0 +1,74 @@
+﻿
+<div class="main-panel" style="width:100%;">
+    <div class="row breadcrumb">
+        <div class="col-12 col-md-6 title">
+            {{'lblHistoryList'| translate:service.CL}}
+        </div>
+        <div class="col-12 col-md-6">
+            <a class="link" routerLink="/">{{'lblHome'| translate:service.CL}}</a> <i class="fa fa-angle-double-right"></i>
+            <span>{{'lblHistory'| translate:service.CL}}</span>
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 stretch-card">
+                <div class="card">
+                    <div class="card-body min-height">
+                        <div class="table-header">
+                            <div>
+                                <!-- <button type="button" class="btn btn-sm btn-secondary tlp" (click)="txtSearch='';refreshGrid(true);"><i class="fa fa-sync"></i></button> -->
+                                <!-- <button type="button" *ngIf="service?.Account?.Is_Delete_History" (click)="DeleteRow()" class="btn btn-sm btn-danger tlp" ><i class="fa fa-trash"></i></button> -->
+
+
+                            </div>
+                            <div class="table-filter">
+                                <input type="text" *ngIf="service?.Account?.Is_History_Search" class="form-control form-control-sm" name="filter" placeholder="{{'phSearch'| translate:service.CL}}" [(ngModel)]="txtSearch" (keyup)="service.App.searchFilter.emit($event.target.value);">
+                                <button *ngIf="service?.Account?.Is_Column_Filter_History" class="btn btn-sm btn-secondary tlp" type="button" (click)="ShowHideColumnFilter()"><i class="fa fa-eye-slash"></i></button>
+                                <div class="dropdown dropleft" *ngIf="service?.Account?.Is_ColumnChooser_Visible">
+                                    <button class="btn btn-sm btn-secondary tlp" data-toggle="dropdown" type="button">
+                                        <i class="fa fa-cog"></i>
+                                    </button>
+                                    <ul class="dropdown-menu max-dropdown-overflow" (click)="$event.stopPropagation()">
+                                        <ng-container *ngFor="let filter of gridFilter;let i = index;">
+                                            <li *ngIf="filter.ColumnName != 'HasAttachment'" class="dropdown-item">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chkfltr-{{i}}" [(ngModel)]="filter.Is_Visible" (change)="change_columnchooser(filter, $event.target.value, i)">
+                                                    <label class="custom-control-label" for="chkfltr-{{i}}">
+                                                        <span *ngIf="filter.ColumnName == 'ProfilePicture'">{{'lblProfilePicture' | translate:service.CL}}</span>
+                                                        <span *ngIf="filter.ColumnName != 'ProfilePicture'">{{filter.DisplayText | translate:service.CL}}</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position:relative;">
+                            <history-commongrid #commongrid [ModuleType]="'history'" *ngIf="allItems.length > 0" [records]="allItems" [gridfilter]="gridFilter" [SearchText]="txtSearch"
+                                               [pagesize]="10" (change)="pageChanged($event)" [ShowSorting]="true"
+                                               [PagingType]="'nextprevnumberadvanced'" [ShowPagesize]="true" [ShowFilter]="Is_ShowColumnFilter" [ShowCheckbox]="true"
+                                               [Edit]="true" (EditRow)="EditRowDBClick($event)" (ViewRow)="service?.Account?.Is_View_History && ViewRow($event)">
+                            </history-commongrid>
+                            <div class="nodata" *ngIf="!isLoading && allItems.length == 0">
+                                <span>{{'lblNoData'| translate:service.CL}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="isLoading" class="overlay-inner">
+                            <i class="fa fa-circle-notch fa-spin"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<row-view #RowView></row-view>
+
+

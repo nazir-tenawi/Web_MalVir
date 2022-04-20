@@ -1,0 +1,44 @@
+﻿
+<nav  class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+
+    <div class="navbar-menu-wrapper d-flex align-items-center p-0">       
+        <!-- For Agent Menus -->
+        <ul class="navbar-nav navbar-nav-left header-links d-none d-lg-flex">
+            <li class="nav-item">
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link"><i class="fa fa-home"></i>{{'lblHome'| translate:service.CL}}</a>
+            </li>
+            <li class="nav-item">
+                <a *ngIf="service?.Account.UserID != 0" routerLink="/history" routerLinkActive="active" class="nav-link"><i class="fa fa-history-alt"></i>{{'lblHistory'| translate:service.CL}}</a>
+            </li>
+            <li class="nav-item">
+                <a *ngIf="service?.Account.UserID != 0 && service?.Account?.Show_Admin_Menu" routerLink="/admin" routerLinkActive="active" class="nav-link"><i class="fa fa-cog"></i>{{'lblAdminSetting'| translate:service.CL}}</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown d-none1 d-lg-block">
+                <a id="profileDropdown" class="nav-link dropdown-toggle m-0" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <img class="img-xs rounded-circle mr-1" [src]="ProfilePicture" alt="">
+                    <span class="font-13">{{service?.Account?.DisplayName}}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown user-dropdown" aria-labelledby="profileDropdown">
+                    <a *ngIf="service?.Account?.Is_Agent && service?.Account?.Is_Profile_Visible" class="dropdown-item" routerLink="/admin/user_agent" [queryParams]="{id: service?.Account?.UserID}">
+                        <i class="fa fa-user"></i> {{'lblProfile'| translate:service.CL}}
+                    </a>
+                    <a *ngIf="!service?.Account?.Is_Agent && service?.Account?.Is_Profile_Visible_Client" class="dropdown-item" routerLink="/profile">
+                        <i class="fa fa-user"></i> {{'lblProfile'| translate:service.CL}}
+                    </a>
+
+                    <a class="dropdown-divider"></a>
+                    <a class="dropdown-item cursor" *ngIf="service?.Account.UserID == 0"(click)="RedirectToLogin();"><i class="fa fa-sign-out-alt"></i> {{'lblLogin'| translate:service.CL}}</a>
+                    <a class="dropdown-item cursor" *ngIf="service?.Account.UserID != 0" (click)="service?.logOut();"><i class="fa fa-sign-out-alt"></i> {{'lblLogout'| translate:service.CL}}</a>
+                </div>
+            </li>
+        </ul>
+        <button type="button" class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" style="position:fixed;right:0;" data-toggle="offcanvas" (click)="service?.ShowHide_LeftMenu();">
+            <span class="fa fa-bars"></span>
+        </button>
+
+    </div>
+
+</nav>

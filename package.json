@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "public": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --open",
+    "prod": "ng serve --open --prod",
+    "build": "ng build --prod",
+    "test": "ng test",
+    "postinstall": "ngcc"
+  },
+  "dependencies": {
+    "@angular/common": "^11.0.5",
+    "@angular/compiler": "^11.0.5",
+    "@angular/core": "^11.0.5",
+    "@angular/forms": "^11.0.5",
+    "@angular/platform-browser": "^11.0.5",
+    "@angular/platform-browser-dynamic": "^11.0.5",
+    "@angular/router": "^11.0.5",
+    "@aspnet/signalr": "^1.1.4",
+    "chart.js": "^2.7.3",
+    "chart.piecelabel.js": "^0.15.0",
+    "flatpickr": "^4.6.3",
+    "ng2-charts": "^2.4.2",
+    "ng2-flatpickr": "^9.0.0",
+    "ngx-bootstrap": "^6.0.0",
+    "rxjs": "^6.5.1",
+    "rxjs-compat": "^6.3.2",
+    "zone.js": "^0.10.2",
+    "codelyzer": "^6.0.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1100.7",
+    "@angular/animations": "^11.0.5",
+    "@angular/cli": "^11.0.5",
+    "@angular/compiler-cli": "^11.0.5",
+    "@types/signalr": "2.2.35",
+    "signalr": "2.3.0",
+    "@types/node": "^13.9.0",
+    "@types/jasmine": "^3.5.9",
+    "@types/jasminewd2": "^2.0.8",
+    "@types/jquery": "^3.3.33",
+    "jasmine-core": "^3.5.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
+    "typescript": "~4.0.7"
+  }
+}

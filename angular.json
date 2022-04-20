@@ -1,0 +1,103 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "MalVirDetector": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "rxjs",
+              "rxjs-compat",
+              "ng2-flatpickr",
+              "ng2-charts",
+              "chart.js"
+            ],
+            "outputPath": "dist",
+            "resourcesOutputPath": "assets/images",
+            "index": "index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.json",
+            "assets": [
+              //static folders/files path
+              "src/favicon.ico",
+              //,"src/assets"
+              "src/assets/images",
+              "src/.htaccess", // for rewrite url in php server
+              "src/Web.config" // for rewrite url in window server
+            ],
+            "styles": [
+              "src/assets/css/font-awesome.min.css",
+              "src/assets/css/flatpickr.css",
+              "src/assets/css/jquery.webui-popover.min.css",
+              "src/assets/css/common.css",
+              "src/assets/css/style.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery.min.js",
+              "src/assets/js/FileSaver.min.js",
+              "src/assets/js/base64js.min.js",
+              "src/assets/js/bootstrap-dropdown.min.js",
+              //"src/assets/js/tooltipster.min.js",
+              "src/assets/js/jquery.webui-popover.min.js"
+              //"node_modules/flatpickr/dist/plugins/monthSelect/index.js" //month/year flatpickr datepicker plugin              
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "bundles", //"all"
+              "sourceMap": false,
+              //"extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "buildOptimizer": true,
+              "extractLicenses": false,
+              "vendorChunk": true,
+              "commonChunk": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "8mb",
+                  "maximumError": "8mb"
+                }
+              ],
+              "optimization": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "MalVirDetector:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "MalVirDetector:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "MalVirDetector:build"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "MalVirDetector"
+}
