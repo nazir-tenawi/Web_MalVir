@@ -21,7 +21,7 @@ export interface Hash_Model {
     selectedRow?: boolean;
 }
 export class Account_Model {
-    UserID: number;
+    UserID: number = 0;
     DisplayName: string;
     UserName: string;
     Email: string;
