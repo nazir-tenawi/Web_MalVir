@@ -18,8 +18,8 @@ export class ScanComponent {
   WiresharkForm: FormGroup;
 
   fileResult: Hash_Model = null;
-  wiresharkResult: Hash_Model [] = null;
-  searchResult : Hash_Model = null;
+  wiresharkResult: Hash_Model[] = null;
+  searchResult: Hash_Model = null;
   wiresharkLogCount = 0;
 
   fileName: string = "";
@@ -32,15 +32,13 @@ export class ScanComponent {
   IsWiresharkResult: boolean = false;
   IsFileResult: boolean = false;
 
-
   isLoading = false;
   sub: any;
   sub1: any;
   pieChartData: any;
   logoUrl = "/assets/images/logoLg.png";
 
-
-  @ViewChild('f') form: NgForm;
+  @ViewChild("f") form: NgForm;
 
   constructor(
     public service: SystemService,
@@ -50,7 +48,7 @@ export class ScanComponent {
     this.service.GoTo_ScrollTop(window);
     this.InitForm();
   }
-  
+
   ngOnInit() {}
 
   ngOnDestroy() {
@@ -80,7 +78,6 @@ export class ScanComponent {
   }
 
   ChangeMethod(type: string) {
-    this.deleteFile(0);
     // this.form.resetForm();
     this.SearchForm.controls["HashContent"].setValue("");
 
@@ -99,36 +96,34 @@ export class ScanComponent {
 
         break;
 
-        case "IsWireshark":
-          this.IsWireshark = true;
+      case "IsWireshark":
+        this.IsWireshark = true;
 
-          break;
+        break;
 
-          case "IsFile":
-            this.IsFile = true;
+      case "IsFile":
+        this.IsFile = true;
 
-            break;
+        break;
 
-            case "IsSearchResult":
-              this.IsSearchResult = true;
+      case "IsSearchResult":
+        this.IsSearchResult = true;
 
-              break;
+        break;
 
-              case "IsWiresharkResult":
-                this.IsWiresharkResult = true;
+      case "IsWiresharkResult":
+        this.IsWiresharkResult = true;
 
-                break;
+        break;
 
-                case "IsFileResult":
-                  this.IsFileResult = true;
-                  break;
-    
+      case "IsFileResult":
+        this.IsFileResult = true;
+        break;
+
       default:
         break;
     }
-
-
-      }
+  }
 
   InitForm() {
     this.SearchForm = this.fb.group({
@@ -147,16 +142,14 @@ export class ScanComponent {
       this.isLoading = true;
 
       let obj = this.SearchForm.getRawValue();
-      console.log("🚀 ~ file: dashboard.ts ~ line 101 ~ ScanComponent ~ ScanSearch ~ obj", obj)
       // let obj2 = this.FileForm.getRawValue();
       // let obj3 = this.WiresharkForm.getRawValue();
-      this.searchResult = await this.service.Data.ExecuteAPI_Post<any>("Scan/Scan_Search", obj);
-      console.log("🚀 ~ file: dashboard.ts ~ line 93 ~ ScanComponent ~ ScanSearch ~ res", this.searchResult);
+      this.searchResult = await this.service.Data.ExecuteAPI_Post<any>(
+        "Scan/Scan_Search",
+        obj
+      );
       if (this.searchResult) {
-
-      // TODO: Display Result in unified result template
-
-      
+        // TODO: Display Result in unified result template
       }
       this.isLoading = false;
     } catch (e) {
@@ -165,16 +158,13 @@ export class ScanComponent {
     this.ChangeMethod("IsSearchResult");
   }
   async ScanLogFile() {
-    console.log("🚀ScanLogFile");
-
-    console.log("🚀 ~ file: dashboard.ts ~ line 158 ~ ScanComponent ~ ScanLogFile ~ this.IsWiresharkResult", this.IsWiresharkResult)
-    if(this.IsWireshark){
-
-      console.log("🚀 ~ file: dashboard.ts ~ line 101 ~ ScanComponent ~ ScanWireshark ~ ScanWireshark", 'ScanWireshark')
+    if (this.IsWireshark) {
       try {
         this.isLoading = true;
-        let res = await this.service.Data.ExecuteAPI_Post<any>("Scan/Scan_Wireshark", {  attachment: this.lstAttachments ? this.lstAttachments[0] : [] });
-        console.log("🚀 ~ file: scan.ts ~ line 177 ~ ScanComponent ~ ScanLogFile ~ res", res)
+        let res = await this.service.Data.ExecuteAPI_Post<any>(
+          "Scan/Scan_Wireshark",
+          { attachment: this.lstAttachments ? this.lstAttachments[0] : [] }
+        );
         this.wiresharkLogCount = res.Item1;
         this.wiresharkResult = res.Item2;
         if (res) {
@@ -184,15 +174,15 @@ export class ScanComponent {
         this.isLoading = false;
       }
       this.ChangeMethod("IsWiresharkResult");
-    } else if (this.IsFile){
-
-      console.log("🚀 ~ file: dashboard.ts ~ line 101 ~ ScanComponent ~ IsFileResult ~ IsFileResult", 'IsFileResult')
+    } else if (this.IsFile) {
       try {
         this.isLoading = true;
-        let res = await this.service.Data.ExecuteAPI_Post<any>("Scan/Scan_File", {  attachment: this.lstAttachments ? this.lstAttachments[0] : [] });
+        let res = await this.service.Data.ExecuteAPI_Post<any>(
+          "Scan/Scan_File",
+          { attachment: this.lstAttachments ? this.lstAttachments[0] : [] }
+        );
         this.fileResult = res;
-        console.log("🚀 ~ file: dashboard.ts ~ line 132 ~ ScanComponent ~ IsFileResult ~ res", res)
-        
+
         if (res) {
         }
         this.isLoading = false;
@@ -201,60 +191,64 @@ export class ScanComponent {
       }
       this.ChangeMethod("IsFileResult");
     }
+    this.deleteFile(0);
+    this.lstAttachments = [];
   }
-  
 
-      //Attachments
-      @ViewChild('flAttachment') flAttachment: ElementRef;
-      lstAttachments: Array<any> = [];
-      Not_AllowedExtensions: Array<string> = [];
-      fileChange(event: any) {
-          console.log("🚀 ~ file: dashboard.ts ~ line 156 ~ ScanComponent ~ fileChange ~ event", event)
-          // let files = event.target.files;// [].slice.call(event.target.files);
-          let files = event;// [].slice.call(event.target.files);
-          console.log("🚀 ~ file: dashboard.ts ~ line 157 ~ ScanComponent ~ fileChange ~ files", files)
-          for (var i = 0; i < files.length; i++) {
-              let file = files[i];
-              this.ReadFiles(file); //read files                       
-          }
-      }
-      ReadFiles(file) {
-          var myReader: FileReader = new FileReader();
-          console.log("🚀 ~ file: dashboard.ts ~ line 176 ~ ScanComponent ~ ReadFiles ~ myReader", myReader)
-          let extension = file.name.replace(/^.*\./, '');
-          this.fileName = file.name;
-          if (this.Not_AllowedExtensions.indexOf(extension.toLowerCase()) < 0) {
-              myReader.readAsDataURL(file);
-              myReader.onloadend = async (e) => {
-                  this.lstAttachments.push({ name: file.name, type: file.type, extension: extension, size: file.size, value: <string>myReader.result });
-                  let obj = [];
-                  let index = 0;
-                  let res = {};
+  //Attachments
+  @ViewChild("flAttachment") flAttachment: ElementRef;
+  lstAttachments: Array<any> = [];
+  Not_AllowedExtensions: Array<string> = [];
+  fileChange(event: any) {
+    // let files = event.target.files;// [].slice.call(event.target.files);
+    let files = event; // [].slice.call(event.target.files);
+    for (var i = 0; i < files.length; i++) {
+      let file = files[i];
+      this.ReadFiles(file); //read files
+    }
+  }
+  ReadFiles(file) {
+    var myReader: FileReader = new FileReader();
+    let extension = file.name.replace(/^.*\./, "");
+    this.fileName = file.name;
+    if (this.Not_AllowedExtensions.indexOf(extension.toLowerCase()) < 0) {
+      myReader.readAsDataURL(file);
+      myReader.onloadend = async (e) => {
+        this.lstAttachments.push({
+          name: file.name,
+          type: file.type,
+          extension: extension,
+          size: file.size,
+          value: <string>myReader.result,
+        });
+        let obj = [];
+        let index = 0;
+        let res = {};
 
-                      const progressInterval = setInterval(() => {
-                        if (this.files[index].progress === 100) {
-                          clearInterval(progressInterval);
-                          this.ScanLogFile();
-                          // this.uploadFilesSimulator(index + 1);
-                        } else {
-                          if(this.files[index].progress >= 95 && res == {}){
-                          } else {
-                            this.files[index].progress += 5;
-                          }
-                        }
-                      }, 100);
-     
-              }
+        const progressInterval = setInterval(() => {
+          if (this.files[index].progress === 100) {
+            clearInterval(progressInterval);
+            this.ScanLogFile();
+            // this.uploadFilesSimulator(index + 1);
+          } else {
+            if (this.files[index].progress >= 95 && res == {}) {
+            } else {
+              this.files[index].progress += 5;
+            }
           }
-          else {
-              this.service.showMessage(AlertType.Error, this.service.Translator.instant("msgFileExtensionNotSupport"));
-          }
-      }
-  
-      RemoveAttachment(item: any, type: string) {
-          this.lstAttachments = this.lstAttachments.filter(d => d != item);
-      }
+        }, 100);
+      };
+    } else {
+      this.service.showMessage(
+        AlertType.Error,
+        this.service.Translator.instant("msgFileExtensionNotSupport")
+      );
+    }
+  }
 
+  RemoveAttachment(item: any, type: string) {
+    this.lstAttachments = this.lstAttachments.filter((d) => d != item);
+  }
 
   files: any[] = [];
 
@@ -262,27 +256,26 @@ export class ScanComponent {
    * Convert Files list to normal array list
    * @param files (Files List)
    */
-   prepareFilesList(files: Array<any>) {
-    for (const item of files) {
-      item.progress = 0;
-      this.files.push(item);
-    }
+  prepareFilesList(files: Array<any>) {
+    // for (const item of files) {
+      files[0].progress = 0;
+      this.files.push(files[0]);
+    // }
     this.fileChange(files);
-    console.log("🚀 ~ file: dashboard.ts ~ line 222 ~ ScanComponent ~ prepareFilesList ~ uploadFilesSimulator", 'uploadFilesSimulator')
     // this.uploadFilesSimulator(0);
   }
   /**
    * on file drop handler
    */
   onFileDropped($event) {
-    this.prepareFilesList($event);
+    if(this.lstAttachments.length == 0) this.prepareFilesList($event);
   }
 
   /**
    * handle file from browsing
    */
   fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+    if(this.lstAttachments.length == 0) this.prepareFilesList(files);
   }
 
   /**
@@ -307,14 +300,11 @@ export class ScanComponent {
             this.uploadFilesSimulator(index + 1);
           } else {
             this.files[index].progress += 5;
-            console.log("🚀 ~ file: dashboard.ts ~ line 221 ~ ScanComponent ~ prepareFilesList ~ uploadFilesSimulator", 'uploadFilesSimulator')
           }
         }, 200);
       }
     }, 1000);
   }
-
-
 
   /**
    * format bytes
