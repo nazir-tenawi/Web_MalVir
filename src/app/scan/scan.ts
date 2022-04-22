@@ -18,8 +18,9 @@ export class ScanComponent {
   WiresharkForm: FormGroup;
 
   fileResult: Hash_Model = null;
-  wiresharkResult: Hash_Model = null;
+  wiresharkResult: Hash_Model [] = null;
   searchResult : Hash_Model = null;
+  wiresharkLogCount = 0;
 
   fileName: string = "";
 
@@ -173,9 +174,9 @@ export class ScanComponent {
       try {
         this.isLoading = true;
         let res = await this.service.Data.ExecuteAPI_Post<any>("Scan/Scan_Wireshark", {  attachment: this.lstAttachments ? this.lstAttachments[0] : [] });
-        this.wiresharkResult = res;
-        console.log("🚀 ~ file: dashboard.ts ~ line 132 ~ ScanComponent ~ ScanWireshark ~ res", res)
-        
+        console.log("🚀 ~ file: scan.ts ~ line 177 ~ ScanComponent ~ ScanLogFile ~ res", res)
+        this.wiresharkLogCount = res.Item1;
+        this.wiresharkResult = res.Item2;
         if (res) {
         }
         this.isLoading = false;
@@ -201,6 +202,7 @@ export class ScanComponent {
       this.ChangeMethod("IsFileResult");
     }
   }
+  
 
       //Attachments
       @ViewChild('flAttachment') flAttachment: ElementRef;

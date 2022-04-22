@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'reset_password/:key', component: ResetPasswordComponent },
     { path: 'signup', component: SignupComponent },
-    { path: '', component: ScanComponent, canActivate: [AuthGuard] },
+    { path: '', component: ScanComponent},
     { path: 'history', loadChildren: () => import('./history/history.module').then(m => m.HistoryModule), data: { pageProp: 'Show_History_Menu' }, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, data: { pageProp: 'Is_Profile_Visible_Client' }, canActivate: [AuthGuard] },
 

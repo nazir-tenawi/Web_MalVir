@@ -536,24 +536,38 @@
 
                     <div
                       *ngIf="IsWiresharkResult"
-                      style="height: 400px; position: relative"
+                      style=" position: relative"
                     >
                       <div class="mb-5" *ngIf="!wiresharkResult">
                         No security vendors and no sandboxes flagged this file
                         as malicious
                       </div>
                       <div class="row" *ngIf="wiresharkResult">
-                        <ul class="col-sm">
-                          <li>{{wiresharkResult?.HashID }}</li>
-                          <li>{{wiresharkResult?.Size }}</li>
-                          <li>{{wiresharkResult?.HashContent }}</li>
-                        </ul>
-                        <div class="col-sm">
-                          {{wiresharkResult?.CreatedDate | date}}
+                        <div class="col-12 pt-5" >
+                          <div class="col-6 ">Packets Count: {{wiresharkLogCount}}</div>
+                          <div class="col-6 ">Malicious Packets Count: {{wiresharkResult.length}}</div>
                         </div>
-                        <div class="col-sm">{{wiresharkResult?.Type }}</div>
+
+                        <div class="card" *ngFor="let searchResult of wiresharkResult;">
+                          <div class="m-3 card-title" >
+                            <div class="alert alert-danger" role="alert">
+                              security vendors flagged this file
+                              as malicious
+                            </div>
+                          </div>
+  
+                          <div class="card-body container text-left ">
+                            <div class="pb-3"><b>Hash Details:</b></div>
+                            <ul>
+                              <li><b>Hash MD5: </b>{{searchResult?.HashContent }}</li>
+                              <li><b>Type: </b>{{searchResult?.Type }}</li>
+                              <li><b>Size: </b>{{searchResult?.Size }} MB</li>
+                              <li><b>CreatedDate: </b>{{searchResult?.CreatedDate | date}}</li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                      <div
+                      <!-- <div
                         class="mt-5"
                         style="
                           position: absolute;
@@ -574,7 +588,7 @@
                           ></i>
                           Search
                         </button>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
