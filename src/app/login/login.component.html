@@ -19,11 +19,14 @@
                     <div class="mt-5">
                         <button [disabled]="isLoading" class="btn btn-block btn-warning btn-lg font-weight-medium" type="submit">
                             <i *ngIf="isLoading" class="fa fa-circle-notch fa-spin"></i>
-                            {{'btnLogin'| translate:service.CL}}
+                            {{'lblbtnLogin'| translate:service.CL}}
                         </button>
                     </div>
                     <div class="mt-3 text-center">
                         <a class="auth-link text-white cursor" (click)="CheckLogin('forgotpwd')">{{'lblForgotPassword'| translate:service.CL}}</a>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <a class="auth-link text-white cursor" (click)="router.navigate(['signup'])">{{'lblSignup'| translate:service.CL}}</a>
                     </div>
                 </form>
                 <form *ngIf="IsForgotPwdForm" class="pt-3" [formGroup]="ForgotPwdForm" (ngSubmit)="ForgotPwdForm.valid && ForgotPassword()" #f="ngForm" novalidate>

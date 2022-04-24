@@ -16,6 +16,23 @@
         </ul>
 
         <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle m-0" id="langDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <img src="../../assets/images/flag/{{selectedLang ? selectedLang : 'EN'}}.png" class="mr-1"/>
+                    <span class="font-13">{{selectedLang_Key}}</span>
+                </a>
+                <div *ngIf="LanguageList.length > 0" class="dropdown-menu dropdown-menu-right navbar-dropdown user-dropdown" aria-labelledby="langDropdown"
+                     style="max-height:255px;overflow:auto;">
+                    <ng-container *ngFor="let item of LanguageList">
+                        <div class="dropdown-item cursor" [class.active]="item.Value == selectedLang" (click)="changeLanguage(item)">
+                            <a>
+                                <img src="../../assets/images/flag/{{item.Value}}.png" />
+                                {{item.Key}}
+                            </a>
+                        </div>
+                    </ng-container>
+                </div>
+            </li>     
             <li class="nav-item dropdown d-none1 d-lg-block">
                 <a id="profileDropdown" class="nav-link dropdown-toggle m-0" href="#" data-toggle="dropdown" aria-expanded="false">
                     <img class="img-xs rounded-circle mr-1" [src]="ProfilePicture" alt="">

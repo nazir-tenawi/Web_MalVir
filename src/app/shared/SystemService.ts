@@ -146,22 +146,7 @@ export class SystemService {
     async Get_Languages() {
         let lst: any = [
             { Key: 'Arabic', Value: 'AE' },
-            { Key: 'Chinese', Value: 'TW' },
-            { Key: 'Danish', Value: 'DK' },
-            { Key: 'Dutch', Value: 'NL' },
             { Key: 'English', Value: 'EN' },
-            { Key: 'French', Value: 'FR' },
-            { Key: 'German', Value: 'DE' },
-            { Key: 'Greek', Value: 'GR' },
-            { Key: 'Hungarian', Value: 'HU' },
-            { Key: 'Italian', Value: 'IT' },
-            { Key: 'Japanese', Value: 'JP' },
-            { Key: 'Polish', Value: 'PL' },
-            { Key: 'Portuguese', Value: 'PT' },
-            { Key: 'Russian', Value: 'RU' },
-            { Key: 'Spanish', Value: 'ES' },
-            { Key: 'Swedish', Value: 'SE' },
-            { Key: 'Turkish', Value: 'TR' }
         ];
         return lst;
     }

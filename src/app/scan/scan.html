@@ -14,8 +14,7 @@
                 />
               </div>
               <h3 class="row d-flex justify-content-center">
-                Analyze suspicious files, Wireshark logs, or hashes to detect
-                malware and other breaches
+                {{'lblAnalyze'| translate:service.CL}}
               </h3>
             </div>
           </div>
@@ -35,7 +34,9 @@
                           (click)="ChangeMethod('IsFile')"
                           [ngClass]="{ 'active': IsFile }"
                           href="#"
-                          >File</a
+                          >
+                          {{'lblSearch'| translate:service.CL}}
+                          </a
                         >
                       </li>
                       <li class="nav-item">
@@ -44,7 +45,8 @@
                           (click)="ChangeMethod('IsWireshark')"
                           [ngClass]="{ 'active': IsWireshark }"
                           href="#"
-                          >Wireshark</a
+                          >{{'lblWireshark'| translate:service.CL}}
+                          </a
                         >
                       </li>
                       <li class="nav-item">
@@ -53,7 +55,8 @@
                           (click)="ChangeMethod('IsSearch')"
                           [ngClass]="{ 'active': IsSearch }"
                           href="#"
-                          >Search</a
+                          >{{'lblSearch'| translate:service.CL}}
+                          </a
                         >
                       </li>
                     </ul>
@@ -69,7 +72,7 @@
                         #f="ngForm"
                         novalidate
                       >
-                        <p class="mt-3">Enter file hash to search fot it</p>
+                        <p class="mt-3"> {{'lblbtnEnterHash'| translate:service.CL}} </p>
                         <div
                           class="form-group"
                           [ngClass]="{ 'has-error-login': f.submitted && !SearchForm.controls.HashContent.valid }"
@@ -101,7 +104,7 @@
                               *ngIf="isLoading"
                               class="fa fa-circle-notch fa-spin"
                             ></i>
-                            Search
+                            {{'lblSearch'| translate:service.CL}}
                           </button>
                         </div>
                       </form>
@@ -117,7 +120,7 @@
                         #f="ngForm"
                         novalidate
                       >
-                        <p class="mt-3">Select file to scan it</p>
+                        <p class="mt-3">{{'lblSelectFile'| translate:service.CL}}</p>
                         <div
                           class="form-group"
                           [ngClass]="{ 'has-error-login': f.submitted && !FileForm.controls.File.valid }"
@@ -156,7 +159,7 @@
                               </g>
                             </svg>
 
-                            <h3>Drag and drop file here</h3>
+                            <h3>{{'lblDrag'| translate:service.CL}}</h3>
                           </div>
                           <div class="files-list">
                             <div
@@ -250,7 +253,7 @@
                             type="submit"
                             (click)="fileDropRef.click()"
                           >
-                            Choose File
+                          {{'lblChooseFile'| translate:service.CL}}
                           </button>
                         </div>
                       </form>
@@ -266,7 +269,7 @@
                         #f="ngForm"
                         novalidate
                       >
-                        <p class="mt-3">Select Wireshark log to scan it</p>
+                        <p class="mt-3">{{'lblbtnSelectWireshark'| translate:service.CL}}</p>
                         <div
                           class="form-group"
                           [ngClass]="{ 'has-error-login': f.submitted && !WiresharkForm.controls.log.valid }"
@@ -305,7 +308,7 @@
                               </g>
                             </svg>
 
-                            <h3>Drag and drop file here</h3>
+                            <h3>{{'lblDrag'| translate:service.CL}}</h3>
                           </div>
                           <div class="files-list">
                             <div
@@ -399,7 +402,7 @@
                             type="submit"
                             (click)="fileDropRef.click()"
                           >
-                            Choose File
+                          {{'lblChooseFile'| translate:service.CL}}
                           </button>
                         </div>
                       </form>
@@ -414,25 +417,25 @@
                     
                       <div class=" mt-5 card-title" *ngIf="!searchResult">
                           <div class="alert alert-primary" role="alert">
-                            No security vendors and no sandboxes flagged this file
-                            as malicious
+                            {{'lblNoSecurity'| translate:service.CL}}
                           </div>
                       </div>
                       <div *ngIf="searchResult">
                         <div class="m-3 card-title" >
                           <div class="alert alert-danger" role="alert">
-                            security vendors flagged this file
-                            as malicious
+                            {{'lblNoSecurity'| translate:service.CL}}
                           </div>
                         </div>
 
                         <div class="card-body container text-left ">
-                          <div class="pb-3"><b>Hash Details:</b></div>
+                          <div class="pb-3"><b>
+                            {{'lblHashDetails'| translate:service.CL}}:
+                          </b></div>
                           <ul>
-                            <li><b>Hash MD5: </b>{{searchResult?.HashContent }}</li>
-                            <li><b>Type: </b>{{searchResult?.Type }}</li>
-                            <li><b>Size: </b>{{searchResult?.Size }} MB</li>
-                            <li><b>CreatedDate: </b>{{searchResult?.CreatedDate | date}}</li>
+                            <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{searchResult?.HashContent }}</li>
+                            <li><b>{{'lblType'| translate:service.CL}}: </b>{{searchResult?.Type }}</li>
+                            <li><b>{{'lblSize'| translate:service.CL}}: </b>{{searchResult?.Size }} MB</li>
+                            <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{searchResult?.CreatedDate | date}}</li>
                           </ul>
                         </div>
 
@@ -456,7 +459,7 @@
                             *ngIf="isLoading"
                             class="fa fa-circle-notch fa-spin"
                           ></i>
-                          Search
+                          {{'lblSearch'| translate:service.CL}}
                         </button>
                       </div>
                     </div>
@@ -472,27 +475,27 @@
                     
                       <div class=" mt-5 card-title" *ngIf="!fileResult">
                           <div class="alert alert-primary" role="alert">
-                            No security vendors and no sandboxes flagged this file
-                            as malicious
+                            {{'lblNoSecurity'| translate:service.CL}}
                           </div>
                       </div>
                       <div *ngIf="fileResult">
                         <div class="m-3 card-title" >
                           <div class="alert alert-danger" role="alert">
-                            security vendors flagged this file
-                            as malicious
+                            {{'lblNoSecurity'| translate:service.CL}}
                           </div>
                         </div>
 
                         <div class="card-body container text-left ">
-                          <div class="pb-3"><b>Hash Details:</b></div>
-                          <ul>
-                            <li><b>Hash MD5: </b>{{fileResult?.HashContent }}</li>
-                            <li><b>Type: </b>{{fileResult?.Type }}</li>
-                            <li><b>Size: </b>{{fileResult?.Size }} MB</li>
-                            <li><b>CreatedDate: </b>{{fileResult?.CreatedDate | date}}</li>
-                          </ul>
-                        </div>
+                        <div class="pb-3"><b>
+                          {{'lblHashDetails'| translate:service.CL}}:
+                        </b>
+                      </div>
+                        <ul>
+                          <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{fileResult?.HashContent }}</li>
+                          <li><b>{{'lblType'| translate:service.CL}}: </b>{{fileResult?.Type }}</li>
+                          <li><b>{{'lblSize'| translate:service.CL}}: </b>{{fileResult?.Size }} MB</li>
+                          <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{fileResult?.CreatedDate | date}}</li>
+                        </ul>
 
                       </div>
                       <div
@@ -539,8 +542,7 @@
                       style=" position: relative"
                     >
                       <div class="mb-5" *ngIf="!wiresharkResult">
-                        No security vendors and no sandboxes flagged this file
-                        as malicious
+                        {{'lblNoSecurity'| translate:service.CL}}
                       </div>
                       <div class="row" *ngIf="wiresharkResult">
                         <div class="col-12 pt-5" >
@@ -551,19 +553,23 @@
                         <div class="card" *ngFor="let searchResult of wiresharkResult;">
                           <div class="m-3 card-title" >
                             <div class="alert alert-danger" role="alert">
-                              security vendors flagged this file
-                              as malicious
+                              {{'lblNoSecurity'| translate:service.CL}}
                             </div>
                           </div>
   
                           <div class="card-body container text-left ">
-                            <div class="pb-3"><b>Hash Details:</b></div>
+                            <div class="pb-3"><b>
+                              {{'lblHashDetails'| translate:service.CL}}:
+                            </b>
+                          </div>
                             <ul>
-                              <li><b>Hash MD5: </b>{{searchResult?.HashContent }}</li>
-                              <li><b>Type: </b>{{searchResult?.Type }}</li>
-                              <li><b>Size: </b>{{searchResult?.Size }} MB</li>
-                              <li><b>CreatedDate: </b>{{searchResult?.CreatedDate | date}}</li>
+                              <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{searchResult?.HashContent }}</li>
+                              <li><b>{{'lblType'| translate:service.CL}}: </b>{{searchResult?.Type }}</li>
+                              <li><b>{{'lblSize'| translate:service.CL}}: </b>{{searchResult?.Size }} MB</li>
+                              <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{searchResult?.CreatedDate | date}}</li>
                             </ul>
+
+
                           </div>
                         </div>
                       </div>
