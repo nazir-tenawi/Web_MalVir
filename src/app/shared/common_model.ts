@@ -238,7 +238,6 @@ export interface History_Model {
     Hash: string;
     ScanTypeID: number;
     HashID: number;
-    HistoryModeID: number;
     CreatedUser: number;
     UpdatedUser: number;
     CreatedDate: Date;

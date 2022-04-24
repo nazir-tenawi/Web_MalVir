@@ -28,14 +28,10 @@
                         <input type="password" class="form-control" placeholder="{{'lblPassword'| translate:service.CL}}" formControlName="password">
                         <i class="fa fa-eye"></i>
                     </div>
-                    <div class="form-group" [ngClass]="{ 'has-error-signup': f.submitted && !SignupForm.controls.confirm_password.valid }">
-                        <input type="password" class="form-control" placeholder="{{'lblConfirmPassword'| translate:service.CL}}" formControlName="confirm_password">
-                        <i class="fa fa-eye"></i>
-                    </div>
                     <div class="mt-5">
                         <button [disabled]="isLoading" class="btn btn-block btn-warning btn-lg font-weight-medium" type="submit">
                             <i *ngIf="isLoading" class="fa fa-circle-notch fa-spin"></i>
-                            {{'btnSignup'| translate:service.CL}}
+                            {{'lblbtnSignup'| translate:service.CL}}
                         </button>
                     </div>
                     <div class="mt-3 text-center">
