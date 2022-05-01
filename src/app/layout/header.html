@@ -24,7 +24,7 @@
                 <div *ngIf="LanguageList.length > 0" class="dropdown-menu dropdown-menu-right navbar-dropdown user-dropdown" aria-labelledby="langDropdown"
                      style="max-height:255px;overflow:auto;">
                     <ng-container *ngFor="let item of LanguageList">
-                        <div class="dropdown-item cursor" [class.active]="item.Value == selectedLang" (click)="changeLanguage(item)">
+                        <div class="dropdown-item cursor" [class.active]="item.Value == selectedLang" (click)="changeLanguages(item)">
                             <a>
                                 <img src="../../assets/images/flag/{{item.Value}}.png" />
                                 {{item.Key}}
