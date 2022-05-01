@@ -65,32 +65,33 @@ export class SignupComponent {
             let obj = this.SignupForm.getRawValue();
             let res = await this.service.Data.ExecuteAPI_Post<any>("Admin/UserManagement_Signup", obj);
             console.log("🚀 ~ file: signup.component.ts ~ line 93 ~ SignupComponent ~ Signup ~ res", res)
-            if (res.isSuccess) {                
-                let expiration_date = new Date();
-                expiration_date.setSeconds(expiration_date.getSeconds() + this.sessionExpirationSeconds);
-                this.service.App.setCookie("Bearer", res.data, expiration_date);
-                this.service.Data.SetHttpOptions();
+            this.RedirectToLogin();
+            // if (res.isSuccess) {                
+            //     let expiration_date = new Date();
+            //     expiration_date.setSeconds(expiration_date.getSeconds() + this.sessionExpirationSeconds);
+            //     this.service.App.setCookie("Bearer", res.data, expiration_date);
+            //     this.service.Data.SetHttpOptions();
 
-                await this.service.loadAccountDetail();
+            //     await this.service.loadAccountDetail();
 
-                console.log("🚀 ~ file: signup.component.ts ~ line 103 ~ SignupComponent ~ Signup ~ this.service.Account", this.service.Account)
-                if (this.service.Account.Is_Agent) {
-                        if (this.returnUrl && this.returnUrl != '' && this.returnUrl != '/') {
-                            this.router.navigate([this.returnUrl]);
-                        }
-                        else { this.router.navigate(['']); }
-                }
-                else {
-                        //redirect to requester dashboard page
-                        if (this.returnUrl && this.returnUrl != '' && this.returnUrl != '/') {
-                            this.router.navigate([this.returnUrl]);
-                        }
-                        else { this.router.navigate(['/']); }
-                }
-            }
-            else {
-                this.service.showMessage(AlertType.Error, res.msg);
-            }
+            //     console.log("🚀 ~ file: signup.component.ts ~ line 103 ~ SignupComponent ~ Signup ~ this.service.Account", this.service.Account)
+            //     if (this.service.Account.Is_Agent) {
+            //             if (this.returnUrl && this.returnUrl != '' && this.returnUrl != '/') {
+            //                 this.router.navigate([this.returnUrl]);
+            //             }
+            //             else { this.router.navigate(['']); }
+            //     }
+            //     else {
+            //             //redirect to requester dashboard page
+            //             if (this.returnUrl && this.returnUrl != '' && this.returnUrl != '/') {
+            //                 this.router.navigate([this.returnUrl]);
+            //             }
+            //             else { this.router.navigate(['/']); }
+            //     }
+            // }
+            // else {
+            //     this.service.showMessage(AlertType.Error, res.msg);
+            // }
             this.isLoading = false;
         } catch (e) {
             this.isLoading = false;

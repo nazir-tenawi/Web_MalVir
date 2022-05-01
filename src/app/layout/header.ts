@@ -46,9 +46,11 @@ export class HeaderComponent {
     async get_language_list() {
         this.LanguageList = await this.service.Get_Languages();
         if (localStorage.getItem("lang")) { this.selectedLang = localStorage.getItem("lang"); }
-        this.changeLanguage({ Key: this.selectedLang, Value: this.selectedLang }, false);
+        // this.changeLanguage({ Key: this.selectedLang, Value: this.selectedLang }, false);
     }
-    async changeLanguage(item: KeyValueString, IsApiRefresh = true) {
+    async changeLanguages(item: KeyValueString, IsApiRefresh = true) {
+        location.reload();
+
         if (item.Value == item.Key) { item = this.LanguageList.find(d => d.Value == item.Value); }
 
         this.selectedLang = item.Value;
@@ -67,6 +69,8 @@ export class HeaderComponent {
             this.service.CL = 'dummy';
             setTimeout(() => { this.service.CL = item.Value; });
         }
+
+
     }
     RedirectToLogin() {
         this.service.App.ShowLoader = false;
