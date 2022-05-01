@@ -55,7 +55,7 @@
                           (click)="ChangeMethod('IsSearch')"
                           [ngClass]="{ 'active': IsSearch }"
                           href="#"
-                          >{{'lblSearch'| translate:service.CL}}
+                          >{{'lblFile'| translate:service.CL}}
                           </a
                         >
                       </li>
@@ -465,7 +465,112 @@
                     </div>
 
 
+                    <div *ngIf="fileResult">
+                      <div class="m-3 card-title" >
+                        <div class="alert alert-danger" role="alert">
+                          {{'lblNoSecurity'| translate:service.CL}}
+                        </div>
+                      </div>
 
+                      <div class="card-body container text-left ">
+                      <div class="pb-3"><b>
+                        {{'lblHashDetails'| translate:service.CL}}:
+                      </b>
+                    </div>
+                      <ul>
+                        <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{fileResult?.HashContent }}</li>
+                        <li><b>{{'lblType'| translate:service.CL}}: </b>{{fileResult?.Type }}</li>
+                        <li><b>{{'lblSize'| translate:service.CL}}: </b>{{fileResult?.Size }} MB</li>
+                        <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{fileResult?.CreatedDate | date}}</li>
+                      </ul>
+
+                    </div>
+                    <div
+                      class="mt-5"
+                      style="
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        text-align: center;
+                      "
+                    >
+                      <button
+                        [disabled]="isLoading"
+                        class="btn btn-block btn-warning btn-lg font-weight-medium"
+                        type="submit"
+                      >
+                        <i
+                          *ngIf="isLoading"
+                          class="fa fa-circle-notch fa-spin"
+                        ></i>
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="IsWiresharkResult"
+                    style=" position: relative"
+                  >
+                  <div class="col-12 pt-5" >
+                    <div class="col-6 ">Packets Count: {{wiresharkLogCount}}</div>
+                    <div class="col-6 ">Malicious Packets Count: {{wiresharkResult.length}}</div>
+                  </div>
+                    <div class="mb-5" *ngIf="wiresharkResult.length == 0">
+                      <div class=" mt-5 card-title" >
+                          <div class="alert alert-primary" role="alert">
+                            {{'lblNoSecurity'| translate:service.CL}}
+                          </div>
+                      </div>                    
+                    </div>
+                    <div class="row" *ngIf="wiresharkResult.length > 0">
+
+
+                      <div class="card" *ngFor="let searchResult of wiresharkResult;">
+                        <div class="m-3 card-title" >
+                          <div class="alert alert-danger" role="alert">
+                            {{'lblNoSecurity'| translate:service.CL}}
+                          </div>
+                        </div>
+
+                        <div class="card-body container text-left ">
+                          <div class="pb-3"><b>
+                            {{'lblHashDetails'| translate:service.CL}}:
+                          </b>
+                        </div>
+                          <ul>
+                            <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{searchResult?.HashContent }}</li>
+                            <li><b>{{'lblType'| translate:service.CL}}: </b>{{searchResult?.Type }}</li>
+                            <li><b>{{'lblSize'| translate:service.CL}}: </b>{{searchResult?.Size }} MB</li>
+                            <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{searchResult?.CreatedDate | date}}</li>
+                          </ul>
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div
+                      class="mt-5"
+                      style="
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        text-align: center;
+                      "
+                    >
+                      <button
+                        [disabled]="isLoading"
+                        class="btn btn-block btn-warning btn-lg font-weight-medium"
+                        type="submit"
+                      >
+                        <i
+                          *ngIf="isLoading"
+                          class="fa fa-circle-notch fa-spin"
+                        ></i>
+                        Search
+                      </button>
+                    </div> -->
+                  </div>
                     <div
                       *ngIf="IsFileResult"
                       class="card"
@@ -478,49 +583,6 @@
                             {{'lblNoSecurity'| translate:service.CL}}
                           </div>
                       </div>
-                      <div *ngIf="fileResult">
-                        <div class="m-3 card-title" >
-                          <div class="alert alert-danger" role="alert">
-                            {{'lblNoSecurity'| translate:service.CL}}
-                          </div>
-                        </div>
-
-                        <div class="card-body container text-left ">
-                        <div class="pb-3"><b>
-                          {{'lblHashDetails'| translate:service.CL}}:
-                        </b>
-                      </div>
-                        <ul>
-                          <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{fileResult?.HashContent }}</li>
-                          <li><b>{{'lblType'| translate:service.CL}}: </b>{{fileResult?.Type }}</li>
-                          <li><b>{{'lblSize'| translate:service.CL}}: </b>{{fileResult?.Size }} MB</li>
-                          <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{fileResult?.CreatedDate | date}}</li>
-                        </ul>
-
-                      </div>
-                      <div
-                        class="mt-5"
-                        style="
-                          position: absolute;
-                          bottom: 0;
-                          right: 0;
-                          left: 0;
-                          text-align: center;
-                        "
-                      >
-                        <button
-                          [disabled]="isLoading"
-                          class="btn btn-block btn-warning btn-lg font-weight-medium"
-                          type="submit"
-                        >
-                          <i
-                            *ngIf="isLoading"
-                            class="fa fa-circle-notch fa-spin"
-                          ></i>
-                          Search
-                        </button>
-                      </div>
-                    </div>
 
 
 
@@ -537,65 +599,7 @@
 
 
 
-                    <div
-                      *ngIf="IsWiresharkResult"
-                      style=" position: relative"
-                    >
-                      <div class="mb-5" *ngIf="!wiresharkResult">
-                        {{'lblNoSecurity'| translate:service.CL}}
-                      </div>
-                      <div class="row" *ngIf="wiresharkResult">
-                        <div class="col-12 pt-5" >
-                          <div class="col-6 ">Packets Count: {{wiresharkLogCount}}</div>
-                          <div class="col-6 ">Malicious Packets Count: {{wiresharkResult.length}}</div>
-                        </div>
 
-                        <div class="card" *ngFor="let searchResult of wiresharkResult;">
-                          <div class="m-3 card-title" >
-                            <div class="alert alert-danger" role="alert">
-                              {{'lblNoSecurity'| translate:service.CL}}
-                            </div>
-                          </div>
-  
-                          <div class="card-body container text-left ">
-                            <div class="pb-3"><b>
-                              {{'lblHashDetails'| translate:service.CL}}:
-                            </b>
-                          </div>
-                            <ul>
-                              <li><b>{{'lblHashMD5'| translate:service.CL}}: </b>{{searchResult?.HashContent }}</li>
-                              <li><b>{{'lblType'| translate:service.CL}}: </b>{{searchResult?.Type }}</li>
-                              <li><b>{{'lblSize'| translate:service.CL}}: </b>{{searchResult?.Size }} MB</li>
-                              <li><b>{{'lblCreatedDate'| translate:service.CL}}: </b>{{searchResult?.CreatedDate | date}}</li>
-                            </ul>
-
-
-                          </div>
-                        </div>
-                      </div>
-                      <!-- <div
-                        class="mt-5"
-                        style="
-                          position: absolute;
-                          bottom: 0;
-                          right: 0;
-                          left: 0;
-                          text-align: center;
-                        "
-                      >
-                        <button
-                          [disabled]="isLoading"
-                          class="btn btn-block btn-warning btn-lg font-weight-medium"
-                          type="submit"
-                        >
-                          <i
-                            *ngIf="isLoading"
-                            class="fa fa-circle-notch fa-spin"
-                          ></i>
-                          Search
-                        </button>
-                      </div> -->
-                    </div>
                   </div>
                 </div>
               </div>
